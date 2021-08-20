@@ -62,6 +62,18 @@ async function init() {
     await video.play();
 
     initWorker();
+    let lastTime;
+    video.addEventListener('timeupdate', function() {
+        if(!lastTime) {
+            lastTime = Date.now();
+        } else {
+            console.log(Date.now()-lastTime);
+            lastTime = Date.now();
+        }
+        // timeupdate的时候调用也可以
+        detectFaces();
+        // console.log('timeupdate')
+    })
 }
 
 function initWorker() {
@@ -75,10 +87,12 @@ function initWorker() {
             detectFaces();
             break;
         case 'detect_faces':
+            // 数据回来之后进行渲染
             requestAnimationFrame(() => {
                 drawFaceFrame(data.faces);
             });
-            detectFaces();
+            // 这里是每次检测回来时候再次调用
+            // detectFaces();
             updateFps();
             break;
         case 'log':
