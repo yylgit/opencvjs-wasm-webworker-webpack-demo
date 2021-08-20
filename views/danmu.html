@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="/assets/css/danmu.css" rel="stylesheet" />
+  </head>
+  <style>
+    #danmu {
+      width: 100%; 
+      height: 100%; 
+      position: absolute; 
+      top: 0px; 
+      left: 0px;
+    }
+
+    @keyframes danmu {
+        0% {
+          transform: translate(-50%,-50%);
+        }
+        100% {
+          transform: translate(50%,50%);
+        }
+    }
+    #danmuinner {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      animation: danmu 3s alternate-reverse infinite;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="videoWrapper" id="videoWrapper" style="position: relative;">
+        <div class="fps" id="fps"></div>
+        <video muted="true"></video>
+        <div id="danmu">
+          <div id="danmuinner">
+
+          </div>
+
+        </div>
+      </div>
+      <div class="log" id="log">
+      </div>
+    </div>
+    <script src="/assets/js/danmu.js"></script>
+  </body>
+</html>
+  

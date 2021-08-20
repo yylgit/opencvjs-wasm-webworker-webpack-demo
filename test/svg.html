@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .danmu {
+      width: 500px;
+      height: 500px;
+      background: red;
+      /* -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKIHdpZHRoPSIyMDEuNDM3NXB4IiBoZWlnaHQ9IjM1NXB4IiB2aWV3Qm94PSIwIDAgMTgwLjAwMDAwMCAzMjAuMDAwMDAwIgogcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDMyMC4wMDAwMDApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiCmZpbGw9IiMwMDAwMDAiIHN0cm9rZT0ibm9uZSI+Cgo8L3N2Zz4K); */
+      /* -webkit-mask-image: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKIHdpZHRoPSIyMDEuNDM3NXB4IiBoZWlnaHQ9IjM1NXB4IiB2aWV3Qm94PSIwIDAgMTgwLjAwMDAwMCAzMjAuMDAwMDAwIgogcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDMyMC4wMDAwMDApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiCmZpbGw9IiMwMDAwMDAiIHN0cm9rZT0ibm9uZSI+CjxwYXRoIGQ9Ik0wIDE2MDUgbDAgLTE1OTUgOTAwIDAgOTAwIDAgMCAyNzYgYzAgMjQ3IC0yIDI3NSAtMTUgMjY0IC0xOSAtMTUgLTE1IC0xOQotNTkgNTggLTIxIDM0IC00MyA2MiAtNTEgNjIgLTggMCAtMzEgLTE4IC01MiAtNDEgbC0zOCAtNDEgLTQ1IDE2IGMtMjQgOCAtNDcKMTMgLTUwIDEwIC0zIC0zIC01IC03MSAtNSAtMTUxIDAgLTE2OCAxIC0xNjYgLTkwIC0xNTIgLTc1IDEyIC0xMDUgMjcgLTEyNAo2MSAtMTQgMjUgLTE0IDI5IDUgNTUgMTIgMTUgMzEgMjkgNDIgMzEgMzEgNSAzNiA0MCAxOSAxMTkgLTI0IDEwNiAtMzAgMTk0Ci0xNyAyMjggNyAxNyAxMSA2NyAxMSAxMTMgLTMgMTM2IDI3IDE3NCAxNTEgMTg3IDc2IDggMTA0IDMxIDExMiA5MiAzIDI3IDE3CjY5IDMxIDk1IDMzIDYyIDMyIDg1IC03IDE0NCAtMzAgNDQgLTMzIDU2IC0zMyAxMjQgMCA5MSAyOCAxNDcgNzcgMTU3IDI5IDYKMjkgNiAyMiA2MiAtMyAzMSAtMTIgNjMgLTIwIDcxIC0yNyAzMSAtNDQgOTEgLTQ0IDE1NSAwIDU0IDUgNzQgMzAgMTE4IDE2IDMwCjMwIDY1IDMwIDgwIDAgNjUgMzQgMTA2IDg4IDEwNyBsMzIgMCAwIDQ0NSAwIDQ0NSAtOTAwIDAgLTkwMCAwIDAgLTE1OTV6Cm0xMzQ5IDU2MCBjMjcgLTE0IDQ0IC00MiA1NyAtOTggMyAtMTUgMjMgLTQwIDQzIC01NiA0NCAtMzUgODQgLTExMSAxMDcgLTIwMQoyMiAtODYgMTUgLTI0MSAtMTEgLTI3MCAtMTggLTIwIC0xMzUgLTgwIC0xOTIgLTk4IC00MSAtMTQgLTUwIC0yIC02OCA4MyAtMTAKNDUgLTI3IDg2IC01NCAxMjYgLTY0IDk2IC02OCAyMTAgLTkgMzAxIDI3IDQzIDI5IDUzIDIzIDk3IC05IDY1IDEgMTA2IDI4CjExOSAzMCAxNSA0NCAxNCA3NiAtM3ogbS02NTQgLTcxIGMzOSAtNDggNDcgLTEwOSAyNCAtMTc0IC0yOSAtODAgLTMxIC05MgotMTYgLTEyMCA4IC0xNyAyMyAtMjcgNDcgLTMwIDI5IC00IDM5IC0xMiA1NCAtNDQgMTYgLTM0IDE3IC00NCA3IC04NSAtOSAtMzIKLTEzIC0xNzEgLTEzIC00NTEgLTIgLTQ1MiAtNyAtNDE2IDc2IC01MTMgNTggLTY4IDczIC0xMzIgNDAgLTE2OCAtMTcgLTE5Ci0yNiAtMjEgLTk0IC0xNSAtNDQgNCAtODAgMTIgLTg5IDIwIC04IDggLTI2IDUwIC00MSA5MyAtMTUgNDMgLTM5IDExMCAtNTMKMTQ4IC0xNCAzOSAtMzAgOTUgLTM3IDEyNSAtNiAzMCAtMjQgODMgLTQwIDExNyAtMTcgMzUgLTMwIDY2IC0zMCA2OSAwIDE0Ci01NiAxNDMgLTc2IDE3NSAtMjEgMzQgLTI3IDM3IC04NiA0MyAtNzUgOCAtNzkgMTAgLTEwNyA1NiAtMTggMzAgLTIxIDUwIC0yMQoxNTAgMSA3MCA2IDEzMCAxNCAxNTMgMTIgMzIgNTcgMTA5IDc2IDEyNyAzIDMgMjIgMjkgNDIgNTkgMjAgMjkgNDcgNTkgNjAgNjUKMjQgMTIgNTMgNzYgNjMgMTQwIDQgMjQgMTggNTAgMzYgNjkgMjggMjcgMzQgMjkgODUgMjUgNDYgLTQgNjAgLTEwIDc5IC0zNHoiLz4KPC9nPgo8L3N2Zz4K); */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="danmu" id="danmu">
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsdf
+    sd
+    fs
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsdf
+    sd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsdf
+    sd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsdf
+    sd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdf
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsd
+    sdfsfsdfsdfsdfsdfsdfsdfsdfsdfsfsdsfsdfsdfsdf
+    sd
+  </div>
+    
+  <div id="svgwraper">
+
+  </div>
+<script>
+  // 1 默认svg就是透明的  就是全遮挡
+  // 要想让中间矩形不遮挡  可以通过把外边拼接四个矩形 让中间空出来
+
+  var svgbg = document.getElementById('svgbg');
+  var danmu = document.getElementById('danmu');
+
+  let width = 500;
+  let height = 500;
+
+  let point = {
+    x: 100,
+    y: 100,
+    w: 100,
+    h: 100
+  }
+  // 上面矩形
+  // 下边矩形
+  // 左边矩形
+  // 右边矩形
+  let tpl = `
+  <svg id="svgbg" version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="${width}px" height="${height}px">
+    <rect x="0" y="0" width="${width}" height="${point.y}"/>
+    <rect x="0" y="${point.y+point.h}" width="${width}" height="${height-(point.y+point.h)}"/>
+    <rect x="0" y="${point.y}" width="${point.x}" height="${point.h}"/>
+    <rect x="${point.x+point.x}" y="${point.y}" width="${width-(point.x+point.x)}" height="${point.h}"/>
+    </svg>
+  `
+  document.getElementById('svgwraper').innerHTML = tpl;
+
+  console.log(window.btoa(tpl))
+
+  danmu.style.setProperty('-webkit-mask-image',`url(data:image/svg+xml;base64,${window.btoa(tpl)})`)
+
+
+
+  function rectMask({
+    dom,  // 设置属性的dom
+    width, // dom的width
+    height, // dom的height
+    rect // {x,y,w,h}
+  }) {
+  
+    // 上面矩形
+    // 下边矩形
+    // 左边矩形
+    // 右边矩形
+    let tpl = `
+      <svg id="svgbg" version="1.0" xmlns="http://www.w3.org/2000/svg"
+        width="${width}px" height="${height}px">
+        <rect x="0" y="0" width="${width}" height="${rect.y}"/>
+        <rect x="0" y="${rect.y+rect.h}" width="${width}" height="${height-(rect.y+rect.h)}"/>
+        <rect x="0" y="${rect.y}" width="${rect.x}" height="${rect.h}"/>
+        <rect x="${rect.x+rect.x}" y="${rect.y}" width="${width-(rect.x+rect.x)}" height="${point.h}"/>
+      </svg>
+      `
+    dom.style.setProperty('-webkit-mask-image',`url(data:image/svg+xml;base64,${window.btoa(tpl)})`)
+  }
+</script>
+
+
+
+
+</body>
+</html>

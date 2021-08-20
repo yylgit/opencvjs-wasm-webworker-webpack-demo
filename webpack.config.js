@@ -8,7 +8,8 @@ const bourbon = require('bourbon');
 module.exports = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     entry: {
-        index: './assets/js/index.js'
+        index: './assets/js/index.js',
+        danmu: './assets/js/danmu.js'
     },
     output: {
         path: __dirname + "/builtAssets",
@@ -26,6 +27,7 @@ module.exports = {
                     plugins: ['transform-runtime']
                 }
             },
+            // 这里处理webworker
             {
                 test: /\.worker\.js$/,
                 use: {
@@ -64,7 +66,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([{ from: 'assets/img', to: 'img' }]),
+        // new CopyWebpackPlugin([{ from: 'assets/img', to: 'img' }]),
         new CopyWebpackPlugin([{ from: 'assets/wasm', to: 'wasm' }]),
         new ExtractTextPlugin({
             filename: 'css/[name].css',

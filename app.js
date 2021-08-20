@@ -34,6 +34,10 @@ router.get('/', async(ctx, next) => {
     ctx.body = await ctx.render('index.html');
 });
 
+router.get('/danmu', async(ctx, next) => {
+    ctx.body = await ctx.render('danmu.html');
+});
+
 app
     .use(mount('/assets', staticServe(path.join(__dirname, 'builtAssets'))))
     .use(mount('/static', staticServe(path.join(__dirname, 'static'))))

@@ -12,6 +12,8 @@ let canvas = null;
 let scale = 0;
 let lastUpdate = 0;
 
+let danmu = document.getElementById('danmu');
+
 function addCanvas(width, height) {
     const canvas = document.createElement('canvas');
     canvas.setAttribute('width', width);
@@ -40,7 +42,10 @@ function log(...args) {
 
 async function init() {
     const stream = await navigator.mediaDevices
-              .getUserMedia({ video: true, audio: false });
+              .getUserMedia({ video: {
+                  width: 640,
+                  height: 480
+              }, audio: false });
 
     const settings = stream.getVideoTracks()[0].getSettings();
     // 如果video的width是480 则scale是0.5
@@ -101,6 +106,18 @@ function drawFaceFrame(faces) {
         el.style.height = px(face.height / scale);
 
         parent.appendChild(el);
+        rectMask({
+            dom: danmu,
+            width: video.videoWidth,
+            height: video.videoheight,
+            rect: {
+                x:face.x / scale,
+                y:face.y / scale,
+                w:face.width / scale,
+                h: face.height / scale
+            }
+        })
+        
     });
 }
 
@@ -123,3 +140,38 @@ function updateFps() {
 }
 
 init();
+initDanmu();
+
+function rectMask({
+    dom,  // 设置属性的dom
+    width, // dom的width
+    height, // dom的height
+    rect // {x,y,w,h}
+  }) {
+  
+    // 上面矩形
+    // 下边矩形
+    // 左边矩形
+    // 右边矩形
+    let tpl = `
+      <svg id="svgbg" version="1.0" xmlns="http://www.w3.org/2000/svg"
+        width="${width}px" height="${height}px">
+        <rect x="0" y="0" width="${width}" height="${rect.y}"/>
+        <rect x="0" y="${rect.y+rect.h}" width="${width}" height="${height-(rect.y+rect.h)}"/>
+        <rect x="0" y="${rect.y}" width="${rect.x}" height="${rect.h}"/>
+        <rect x="${rect.x+rect.x}" y="${rect.y}" width="${width-(rect.x+rect.x)}" height="${rect.h}"/>
+      </svg>
+      `
+      console.log(tpl)
+    dom.style.setProperty('-webkit-mask-image',`url(data:image/svg+xml;base64,${window.btoa(tpl)})`)
+  }
+
+
+function initDanmu() {
+    let danmuinner = document.getElementById('danmuinner')
+    let innerHtml = ''
+    for(let i=0;i<14;i++) {
+        innerHtml += `<p>${ (i+'').repeat(60)}</p>`
+    }
+    danmuinner.innerHTML = innerHtml;
+}
