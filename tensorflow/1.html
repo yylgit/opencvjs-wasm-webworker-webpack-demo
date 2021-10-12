@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+    <!-- Load BodyPix -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+ </head>
+
+  <body>
+    <img width="320" height="240" id='image' src='1.jpg' crossorigin='anonymous'/>
+    <canvas id="canvas1"></canvas>
+    <div id="targetdiv" style="width: 320px; height: 240px;">
+        123123123123123123123123123123123
+        1231
+        231
+        23
+        123
+        123
+        123
+        123
+        12
+        31
+        231
+        23
+        123
+        1
+        231
+        23
+        1
+    </div>
+  </body>
+  <!-- Place your code in the script tag below. You can also use an external .js file -->
+  <script>
+    const img = document.getElementById('image');
+    const canvasDom = document.getElementById('canvas1');
+    const targetdiv = document.getElementById('targetdiv');
+
+    function initDanmu() {
+      let danmuinner = document.getElementById('targetdiv')
+      let innerHtml = ''
+      for(let i=0;i<14;i++) {
+          innerHtml += `<p>${ (i+'').repeat(60)}</p>`
+      }
+      danmuinner.innerHTML = innerHtml;
+    }
+    initDanmu();
+
+    canvasDom.width = img.width;
+    canvasDom.height = img.height;
+    let canvas1 = canvasDom.getContext('2d');
+
+    async function loadAndPredict() {
+      const net = await bodyPix.load(/** optional arguments, see below **/);
+
+      /**
+       * One of (see documentation below):
+       *   - net.segmentPerson
+       *   - net.segmentPersonParts
+       *   - net.segmentMultiPerson
+       *   - net.segmentMultiPersonParts
+       * See documentation below for details on each method.
+       */
+      // const segmentation = await net.segmentPerson(img);
+      const segmentation = await net.segmentMultiPerson(image, {
+        flipHorizontal: false,
+        internalResolution: 'medium',
+        segmentationThreshold: 0.7,
+        maxDetections: 10,
+        scoreThreshold: 0.2,
+        nmsRadius: 20,
+        minKeypointScore: 0.3,
+        refineSteps: 10
+      });
+      console.log(segmentation);
+      // let foregroundColor = {r: 255, g: 255, b: 255, a: 0.5};
+      // let backgroundColor = {r: 0, g: 0, b: 0, a: 0.5};
+      const foregroundColor = {r: 0, g: 0, b: 0, a: 0};
+      const backgroundColor = {r: 0, g: 0, b: 0, a: 255};
+      const coloredPartImage = bodyPix.toMask(segmentation, foregroundColor, backgroundColor);
+      debugger
+      console.log(coloredPartImage);
+
+      canvas1.putImageData(coloredPartImage,0,0);
+      let base64data= canvasDom.toDataURL('image/png',0.1)
+      console.log(base64data.length)
+      targetdiv.style.setProperty('-webkit-mask-image',`url(${base64data})`)
+
+    }
+    loadAndPredict();
+  </script>
+</html>
