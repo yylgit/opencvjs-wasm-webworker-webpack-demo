@@ -74,6 +74,7 @@
       console.log(segmentation);
       // let foregroundColor = {r: 255, g: 255, b: 255, a: 0.5};
       // let backgroundColor = {r: 0, g: 0, b: 0, a: 0.5};
+      // 这里的rgba 中a是0代表白色 255代表黑色
       const foregroundColor = {r: 0, g: 0, b: 0, a: 0};
       const backgroundColor = {r: 0, g: 0, b: 0, a: 255};
       const coloredPartImage = bodyPix.toMask(segmentation, foregroundColor, backgroundColor);
