@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2"></script>
+    <!-- Load BodyPix -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@2.0"></script>
+    <style>
+      #danmu {
+        width: 100%; 
+        height: 100%; 
+        position: absolute; 
+        top: 0px; 
+        left: 0px;
+      }
+  
+      @keyframes danmu {
+          0% {
+            transform: translate(-50%,-50%);
+          }
+          100% {
+            transform: translate(50%,50%);
+          }
+      }
+      #danmuinner {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        animation: danmu 3s alternate-reverse infinite;
+      }
+    </style>
+ </head>
+
+  <body>
+    <button id="btnStart">开始</button>
+    <div style="width: 320px; height:240px; position: relative;">
+      <video style="width: 100%; height: 100%;" id='video1' autoplay></video>
+      <div id="danmu">
+        <div id="danmuinner">
+
+        </div>
+
+      </div>
+    </div>
+    <canvas id="canvas1" style="display: none;"></canvas>
+  </body>
+  <!-- Place your code in the script tag below. You can also use an external .js file -->
+  <script>
+    const video1 = document.getElementById('video1');
+    const btnStart = document.getElementById('btnStart');
+    const danmu= document.getElementById('danmu');
+    btnStart.addEventListener('click', function(e) {
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          width: 320,
+          height: 240
+        },
+        audio: true
+      }).then(stream=>{
+        debugger
+        video1.srcObject = stream;
+
+        initDanmu();
+        startDraw();
+      });
+    })
+
+    function initDanmu() {
+        let danmuinner = document.getElementById('danmuinner')
+        let innerHtml = ''
+        for(let i=0;i<14;i++) {
+            innerHtml += `<p>${ (i+'').repeat(60)}</p>`
+        }
+        danmuinner.innerHTML = innerHtml;
+    }
+
+
+    function startDraw() {
+      loadAndPredict().then(res=>{
+        requestAnimationFrame(startDraw);
+      })
+    }
+
+    const canvasDom = document.getElementById('canvas1');
+
+
+
+    canvasDom.width = 320;
+    canvasDom.height = 240;
+    let canvas1 = canvasDom.getContext('2d');
+
+    async function loadAndPredict() {
+      debugger
+      const net = await bodyPix.load(/** optional arguments, see below **/);
+      canvas1.drawImage(video1,0,0);
+      /**
+       * One of (see documentation below):
+       *   - net.segmentPerson
+       *   - net.segmentPersonParts
+       *   - net.segmentMultiPerson
+       *   - net.segmentMultiPersonParts
+       * See documentation below for details on each method.
+       */
+      // 直接传video 报错
+      const segmentation = await net.segmentMultiPerson(canvasDom, {
+        flipHorizontal: false,
+        internalResolution: 'medium',
+        segmentationThreshold: 0.7,
+        maxDetections: 10,
+        scoreThreshold: 0.2,
+        nmsRadius: 20,
+        minKeypointScore: 0.3,
+        refineSteps: 10
+      });
+      // console.log(segmentation);
+      // let foregroundColor = {r: 255, g: 255, b: 255, a: 0.5};
+      // let backgroundColor = {r: 0, g: 0, b: 0, a: 0.5};
+      // 这里的rgba 中a是0代表白色 255代表黑色
+      const foregroundColor = {r: 0, g: 0, b: 0, a: 0};
+      const backgroundColor = {r: 0, g: 0, b: 0, a: 255};
+      const coloredPartImage = bodyPix.toMask(segmentation, foregroundColor, backgroundColor);
+      console.log(coloredPartImage);
+      debugger
+      if(coloredPartImage instanceof ImageData) {
+        canvas1.putImageData(coloredPartImage,0,0);
+        let base64data= canvasDom.toDataURL('image/png',0.1)
+        // console.log(base64data.length)
+        danmu.style.setProperty('-webkit-mask-image',`url(${base64data})`)
+      }
+
+    }
+   
+  </script>
+</html>
